@@ -1,4 +1,5 @@
 const express = require('express')
+const Number = require('../models/numberModel')
 
 const router = express.Router()
 
@@ -13,8 +14,16 @@ router.get('/:id', (req, res) => {
 })
 
 // POST a new number
-router.post('/', (req, res) => {
-  res.json({mssg: 'POST a new number'})
+router.post('/', async (req, res) => {
+  const{phone_number,description,country_of_origin, displayFlag} = req.body
+
+  try {
+    const number = await Number.create({phone_number,description,country_of_origin, displayFlag})
+    res.status(200).json(number)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+
 })
 
 // DELETE a number
