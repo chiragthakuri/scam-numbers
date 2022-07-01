@@ -1,0 +1,84 @@
+const Number = require('../models/numberModel')
+const mongoose = require('mongoose')
+
+// GET all numbers
+const getNumbers = async (req,res) =>{
+    const numbers = await Number.find({}).sort({createdAt: -1})
+
+    res.status(200).json(numbers)
+}
+
+// GET a single number
+const getNumber = async (req,res) =>{
+    const {id} = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'No such number'})
+    }
+    const number = await Number.findById(id)
+    if(!number){
+        return res.status(400).json({error: 'No such number exists'})
+    }
+    res.status(200).json(number)
+}
+
+
+// POST a new number
+  const createNumber = async (req,res) =>{
+  const{phone_number,description,country_of_origin, displayFlag} = req.body
+
+  //add doc to db
+  try {
+    const number = await Number.create({phone_number,description,country_of_origin, displayFlag})
+    res.status(200).json(number)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
+// DELETE a number
+
+const deleteNumber = async (req,res) => {
+    const {id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'not valid Id'})
+    }
+
+    const number = await Number.findOneAndDelete({_id:id})
+
+    if(!number){
+        return res.status(400).json({error: 'no such number exists'})
+    }
+
+    return res.status(200).json(number)
+
+}
+
+// UPDATE a number
+const updateNumber = async (req,res) =>{
+    const {id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'not valid Id'})
+    }
+
+    const number = await Number.findOneAndUpdate({_id:id}, {
+        ...req.body
+    })
+
+    if(!number){
+        return res.status(400).json({error: 'no such number exists'})
+    }
+
+    return res.status(200).json(number)
+
+
+}
+
+
+module.exports = {
+    createNumber,
+    getNumbers,
+    getNumber,
+    deleteNumber,
+    updateNumber
+}
