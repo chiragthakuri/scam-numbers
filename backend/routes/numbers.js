@@ -6,7 +6,7 @@ const {
   deleteNumber,
   updateNumber,
 } = require("../controllers/numberController");
-const isValidMongooseId = require("../middleware/isValidMongooseId");
+const validateMongooseId  = require("../middleware/validateMongooseId ");
 
 const router = express.Router();
 
@@ -14,15 +14,15 @@ const router = express.Router();
 router.get("/", getNumbers);
 
 // GET a single number
-router.get("/:id", isValidMongooseId, getNumber);
+router.get("/:id", validateMongooseId , getNumber);
 
 // POST a new number
 router.post("/", createNumber);
 
 // DELETE a number
-router.delete("/:id", isValidMongooseId, deleteNumber);
+router.delete("/:id", validateMongooseId , deleteNumber);
 
 // UPDATE a number
-router.patch("/:id", isValidMongooseId, updateNumber);
+router.patch("/:id", validateMongooseId , updateNumber);
 
 module.exports = router;
