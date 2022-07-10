@@ -1,5 +1,5 @@
 const Number = require("../models/numberModel");
-const isValidMongooseId = require("../middleware/isValidMongooseId");
+const validateMongooseId  = require("../middleware/validateMongooseId ");
 
 // GET all numbers
 const getNumbers = async (req, res) => {
