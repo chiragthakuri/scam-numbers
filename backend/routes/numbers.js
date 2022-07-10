@@ -1,28 +1,28 @@
-const express = require('express')
+const express = require("express");
 const {
-  createNumber, 
+  createNumber,
   getNumbers,
   getNumber,
   deleteNumber,
-  updateNumber
-} = require('../controllers/numberController')
+  updateNumber,
+} = require("../controllers/numberController");
+const isValidMongooseId = require("../middleware/isValidMongooseId");
 
-
-const router = express.Router()
+const router = express.Router();
 
 // GET all numbers
-router.get('/', getNumbers)
+router.get("/", getNumbers);
 
 // GET a single number
-router.get('/:id', getNumber)
+router.get("/:id", isValidMongooseId, getNumber);
 
 // POST a new number
-router.post('/', createNumber)
+router.post("/", createNumber);
 
 // DELETE a number
-router.delete('/:id',deleteNumber)
+router.delete("/:id", isValidMongooseId, deleteNumber);
 
 // UPDATE a number
-router.patch('/:id', updateNumber)
+router.patch("/:id", isValidMongooseId, updateNumber);
 
-module.exports = router
+module.exports = router;

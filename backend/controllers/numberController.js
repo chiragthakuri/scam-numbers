@@ -1,25 +1,14 @@
 const Number = require("../models/numberModel");
-const mongoose = require("mongoose");
-
-const checkIfNumberIsObject = () => {
-  const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such number" });
-  }
-  return id;
-};
+const isValidMongooseId = require("../middleware/isValidMongooseId");
 
 // GET all numbers
 const getNumbers = async (req, res) => {
-  const numbers = await Number.find({}).sort({ createdAt: -1 });
-
+  const numbers = await Number.find().sort({ createdAt: -1 });
   res.status(200).json(numbers);
 };
 
 // GET a single number
 const getNumber = async (req, res) => {
-  const id = checkIfNumberIsObject();
-  const number = await Number.findById(id);
   if (!number) {
     return res.status(400).json({ error: "No such number exists" });
   }
