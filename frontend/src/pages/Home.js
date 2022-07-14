@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import NumberDetails from '../components/NumberDetails';
+import NumberForm from '../components/NumberForm';
 
 const Home = () => {
   const [numbers, setNumbers] = useState(null);
@@ -25,6 +26,7 @@ const Home = () => {
             <NumberDetails key={number._id} number={number} />
           ))}
       </div>
+      <NumberForm />
     </div>
   );
 };

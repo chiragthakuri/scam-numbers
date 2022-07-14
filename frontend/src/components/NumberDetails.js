@@ -1,3 +1,6 @@
+// date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
 const NumberDetails = ({ number }) => {
   return (
     <div className="number-details">
@@ -12,7 +15,7 @@ const NumberDetails = ({ number }) => {
       </p>
       <p>
         <strong>Created Date: </strong>
-        {number.createdAt}
+        {formatDistanceToNow(new Date(number.createdAt), { addSuffix: true })}
       </p>
     </div>
   );
