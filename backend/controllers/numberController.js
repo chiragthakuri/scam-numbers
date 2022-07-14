@@ -1,5 +1,5 @@
 const Number = require("../models/numberModel");
-const isValidMongooseId = require("../middleware/isValidMongooseId");
+const validateMongooseId  = require("../middleware/validateMongooseId ");
 
 // GET all numbers
 const getNumbers = async (req, res) => {
@@ -9,6 +9,9 @@ const getNumbers = async (req, res) => {
 
 // GET a single number
 const getNumber = async (req, res) => {
+  const {id} = req.params
+  const number = await Number.findById(id)
+
   if (!number) {
     return res.status(400).json({ error: "No such number exists" });
   }
@@ -37,7 +40,7 @@ const createNumber = async (req, res) => {
 // DELETE a number
 
 const deleteNumber = async (req, res) => {
-  const id = checkIfNumberIsObject();
+  const {id} = req.params
 
   const number = await Number.findOneAndDelete({ _id: id });
 
@@ -50,7 +53,7 @@ const deleteNumber = async (req, res) => {
 
 // UPDATE a number
 const updateNumber = async (req, res) => {
-  const id = checkIfNumberIsObject();
+  const {id} = req.params
 
   const number = await Number.findOneAndUpdate(
     { _id: id },
