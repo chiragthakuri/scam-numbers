@@ -23,6 +23,26 @@ const createNumber = async (req, res) => {
   const { phone_number, description, country_of_origin, displayFlag } =
     req.body;
 
+  // let emptyFields = [];
+
+  // if (!phone_number) {
+  //   emptyFields.push('phone_number');
+  // }
+
+  // if (!description) {
+  //   emptyFields.push('description');
+  // }
+
+  // if (!country_of_origin) {
+  //   emptyFields.push('country_of_origin');
+  // }
+
+  // if (emptyFields.length > 0) {
+  //   return res
+  //     .status(400)
+  //     .json({ error: 'Please Fill in all fields' }, emptyFields);
+  // }
+
   //add doc to db
   try {
     const number = await Number.create({

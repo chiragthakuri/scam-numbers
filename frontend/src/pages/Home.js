@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useNumbersContext } from '../hooks/useNumbersContext';
 
 import NumberDetails from '../components/NumberDetails';
 import NumberForm from '../components/NumberForm';
 
 const Home = () => {
-  const [numbers, setNumbers] = useState(null);
+  const { numbers, dispatch } = useNumbersContext();
   useEffect(() => {
     const fetchNumbers = async () => {
       const response = await fetch('/api/numbers/');
       const json = await response.json();
 
       if (response.ok) {
-        setNumbers(json);
+        dispatch({ type: 'SET_NUMBERS', payload: json });
       }
     };
 

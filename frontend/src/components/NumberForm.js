@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useNumbersContext } from '../hooks/useNumbersContext';
 
 const NumberForm = () => {
+  const { dispatch } = useNumbersContext();
   const [phone_number, setPhoneNumber] = useState('');
   const [country_of_origin, setCountry] = useState('');
   const [description, setDesc] = useState('');
@@ -8,15 +10,14 @@ const NumberForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const number = { phone_number, country_of_origin, description };
 
     const response = await fetch('/api/numbers/', {
       method: 'POST',
       body: JSON.stringify(number),
       headers: {
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     });
 
     const json = await response.json();
@@ -31,6 +32,7 @@ const NumberForm = () => {
       setDesc('');
       setCountry('');
       console.log('new number added', json);
+      dispatch({ type: 'CREATE_WORKOUT', payload: json });
     }
   };
 
