@@ -1,5 +1,5 @@
-const Number = require("../models/numberModel");
-const validateMongooseId  = require("../middleware/validateMongooseId ");
+const Number = require('../models/numberModel');
+const validateMongooseId = require('../middleware/validateMongooseId ');
 
 // GET all numbers
 const getNumbers = async (req, res) => {
@@ -9,11 +9,11 @@ const getNumbers = async (req, res) => {
 
 // GET a single number
 const getNumber = async (req, res) => {
-  const {id} = req.params
-  const number = await Number.findById(id)
+  const { id } = req.params;
+  const number = await Number.findById(id);
 
   if (!number) {
-    return res.status(400).json({ error: "No such number exists" });
+    return res.status(400).json({ error: 'No such number exists' });
   }
   res.status(200).json(number);
 };
@@ -40,12 +40,12 @@ const createNumber = async (req, res) => {
 // DELETE a number
 
 const deleteNumber = async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
 
   const number = await Number.findOneAndDelete({ _id: id });
 
   if (!number) {
-    return res.status(400).json({ error: "no such number exists" });
+    return res.status(400).json({ error: 'no such number exists' });
   }
 
   return res.status(200).json(number);
@@ -53,7 +53,7 @@ const deleteNumber = async (req, res) => {
 
 // UPDATE a number
 const updateNumber = async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
 
   const number = await Number.findOneAndUpdate(
     { _id: id },
@@ -63,7 +63,7 @@ const updateNumber = async (req, res) => {
   );
 
   if (!number) {
-    return res.status(400).json({ error: "no such number exists" });
+    return res.status(400).json({ error: 'no such number exists' });
   }
 
   return res.status(200).json(number);
